@@ -42,3 +42,5 @@ yarn.lock
 pnpm-lock.yaml
 
 TODO.md
+
+.env
