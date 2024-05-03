@@ -2,9 +2,9 @@ import { Check } from "lucide-react";
 
 const includedFeatures = [
   "Private forum access",
-  "Member resources",
-  "Entry to annual conference",
-  "Official member t-shirt",
+  "Access to the discord",
+  "+ 300 beautiful reusable components",
+  "Lifetime updates",
 ];
 
 export default function Pricing() {
@@ -53,7 +53,7 @@ export default function Pricing() {
             <div className="rounded-2xl bg-gray-50 dark:bg-gray-800 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
               <div className="mx-auto max-w-xs px-8">
                 <p className="text-base font-semibold text-gray-600 dark:text-gray-400">
-                  Pay once, own it forever
+                  It is free for now
                 </p>
                 <p className="mt-6 flex items-baseline justify-center gap-x-2">
                   <span className="text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50">

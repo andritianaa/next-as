@@ -109,11 +109,11 @@ export default async function RouteLayout(props: LayoutParams<{}>) {
                 fill="currentColor"
               />
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 clipRule="evenodd"
                 d="M12.7 12a2.5 2.5 0 1 0 0-5.1 2.5 2.5 0 0 0 0 5Zm4-5.1a6.1 6.1 0 1 1 0 12.1V7Zm0 12.1 6.2 6.1H9V11.4l7.7 7.6Z"
                 fill="currentColor"
-                className="fill-white dark:fill-neutral-900"
+                className="fillWhite dark:fillNeutral-900"
               />
             </g>
           </svg>

@@ -32,9 +32,7 @@ export function SpotlightHero() {
 
           <div className="mt-5 max-w-3xl text-center mx-auto">
             <p className="text-lg text-gray-600 dark:text-neutral-400">
-              Preline UI is an open-source set of prebuilt UI components,
-              ready-to-use examples and Figma design system based on the
-              utility-first Tailwind CSS framework.
+              {`A Next.js boilerplate with pre-configured authentication, database connection, and customizable themes. Plus, access a wide range of reusable components for seamless project development.`}
             </p>
           </div>
 
