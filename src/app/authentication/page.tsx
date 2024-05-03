@@ -10,12 +10,12 @@ export default async function RoutePage(props: PageParams<{}>) {
         <div className="p-4 sm:p-7 flex flex-col card  shadow-lg ">
           <div className="text-center">
             <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
-              Start your free trial
+              Start for free
             </h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-neutral-400">
               Already have an account?
               <a
-                className="text-blue-600 decoration-2 hover:underline font-medium dark:text-blue-500"
+                className="text-blue-600 decoration-2 hover:underline font-medium dark:text-blue-500 ml-2"
                 href="#"
               >
                 Sign in here
@@ -26,7 +26,7 @@ export default async function RoutePage(props: PageParams<{}>) {
           <div className="mt-5">
             <button
               type="button"
-              className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700  dark:hover:bg-neutral-800"
+              className="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border- shadow-sm  disabled:opacity-50 disabled:pointer-events-none bg-background"
             >
               <svg
                 className="w-4 h-auto"
