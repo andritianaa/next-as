@@ -3,8 +3,8 @@ import { Layout } from "@/components/layout/Layout";
 
 export default async function RoutePage(props: PageParams<{}>) {
   return (
-    <div className="w-full h-full">
-      <Layout className="card p-16 space-y-4 my-8">
+    <div className="w-full h-full max-md:p-4">
+      <Layout className="card p-16 space-y-4 my-8 max-md:my-0 max-md:p-8">
         <h1 className="text-3xl">Terms and Conditions of Use for Next AS</h1>
         <p className="text-muted-foreground">Last Updated: 02 may 2024</p>
         <p>{`Please read these terms and conditions of use ("Terms", "Terms of Use") carefully before using the Next AS boilerplate (the "Service") operated by Andritiana Steve ("We", "Our", "Us").`}</p>

@@ -428,7 +428,7 @@ export const Footer = () => {
               <div className="space-x-4 text-sm ms-4">
                 <a
                   className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200"
-                  href="#"
+                  href="/terms"
                 >
                   Terms
                 </a>
