@@ -9,7 +9,7 @@ export const Footer = () => {
             <Image
               src="/icon.png"
               alt=""
-              className="w-10 h-10"
+              className="size-10"
               width={512}
               height={512}
             />
@@ -97,7 +97,7 @@ export const Footer = () => {
                   className="inline-flex gap-x-2 text-gray-600 hover:text-gray-800 dark:text-neutral-400 dark:hover:text-neutral-200"
                   href="#"
                 >
-                  Customers
+                  Users
                 </a>
               </p>
               <p>
@@ -452,7 +452,7 @@ export const Footer = () => {
                 <Image
                   src="/icon.png"
                   alt=""
-                  className="w-10 h-10"
+                  className="size-10"
                   width={512}
                   height={512}
                 />

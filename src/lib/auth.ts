@@ -7,9 +7,7 @@ import EmailProvider from "next-auth/providers/email";
 
 export const { handlers, auth: baseAuth, signIn, signOut } = NextAuth({
     adapter: PrismaAdapter(prisma),
-    theme: {
-        logo: "/icon-title-white.png"
-    },
+
     providers: [
         Google({
             clientId: env.GOOGLE_CLIENT_ID,

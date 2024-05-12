@@ -2,6 +2,7 @@ import type { LayoutParams } from "@/types/next";
 import { Layout } from "@/components/layout/Layout";
 import { Input } from "../../components/ui/input";
 import Link from "next/link";
+import { Footer } from "../../components/common/Footer";
 
 export default async function RouteLayout(props: LayoutParams<{}>) {
   return (
@@ -77,6 +78,8 @@ export default async function RouteLayout(props: LayoutParams<{}>) {
           </div>
         </div>
       </Layout>
+      <Footer />
+
     </div>
   );
 }

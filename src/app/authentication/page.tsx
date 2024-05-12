@@ -1,5 +1,4 @@
 import type { PageParams } from "@/types/next";
-import Image from "next/image";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 

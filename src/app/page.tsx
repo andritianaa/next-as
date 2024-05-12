@@ -1,13 +1,16 @@
 import { SpotlightHero } from "@/components/home/SpotLight";
 import { Tools } from "@/components/home/Tools";
 import Pricing from "../components/home/Pricing";
+import { NavBar } from "../components/common/NavBar";
+import { currentUser } from "../lib/current-user";
 
-export default function Home() {
+export default async function Home() {
   return (
     <>
-      <SpotlightHero/>
-      <Tools/>
-      <Pricing/>
+      <NavBar />
+      <SpotlightHero />
+      <Tools />
+      <Pricing />
     </>
   );
 }

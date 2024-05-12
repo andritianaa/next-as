@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { NavBar } from "../components/common/NavBar";
 import { Providers } from "./providers";
-import { Footer } from "../components/common/Footer";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -48,9 +47,8 @@ export default function RootLayout({
         )}
       >
         <Providers>
-          <NavBar />
+          <NextTopLoader showSpinner={false}/>
           {children}
-          <Footer />
         </Providers>
       </body>
     </html>
