@@ -12,12 +12,14 @@ import {
 import { LayoutDashboard, LogOut } from "lucide-react";
 import { SignOutAction } from "@/actions/auth.actions";
 import Link from "next/link";
+import { Privilege } from "@prisma/client";
 
 export type UserProps = {
-  email: string | null | undefined;
-  image: string | null | undefined;
   id: string;
-  name: string | null | undefined;
+  name: string | null;
+  email: string | null;
+  privileges: Privilege[];
+  image: string | null | undefined;
 };
 
 export const AuthenticatedMenu = (props: UserProps) => {
@@ -56,12 +58,16 @@ export const AuthenticatedMenu = (props: UserProps) => {
           </Avatar>
           {props.email}
         </DropdownMenuLabel>
-        <Link href="/dashboard">
-          <DropdownMenuItem className="flex items-center gap-3">
-            <LayoutDashboard size={21} />
-            <span>Dashboard</span>
-          </DropdownMenuItem>
-        </Link>
+        {props.privileges && (props.privileges.includes("SU") || props.privileges.includes("REDACTOR")) ? (
+          <Link href="/dashboard">
+            <DropdownMenuItem className="flex items-center gap-3">
+              <LayoutDashboard size={21} />
+              <span>Dashboard</span>
+            </DropdownMenuItem>
+          </Link>
+        ) : (
+          <></>
+        )}
         <DropdownMenuItem
           className="flex items-center gap-3"
           onClick={() => SignOutAction()}

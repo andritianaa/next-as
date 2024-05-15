@@ -1,0 +1,179 @@
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id            String          @id @default(auto()) @map("_id") @db.ObjectId
+    name          String?
+    email         String?         @unique
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
+    // Optional for WebAuthn support
+    Authenticator Authenticator[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    Post            Post[]
+    Seen            Seen[]
+    Rating          Rating[]
+    Comment         Comment[]
+    privileges      Privilege[]
+    CommentReaction CommentReaction[]
+}
+
+enum Privilege {
+    SU
+    REDACTOR
+}
+
+model Account {
+    id                String  @id @default(auto()) @map("_id") @db.ObjectId
+    userId            String  @db.ObjectId
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? @db.String
+    access_token      String? @db.String
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.String
+    session_state     String?
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+}
+
+model Session {
+    id           String   @id @default(auto()) @map("_id") @db.ObjectId
+    sessionToken String   @unique
+    userId       String   @db.ObjectId
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+    id         String   @id @default(auto()) @map("_id") @db.ObjectId
+    identifier String
+    token      String
+    expires    DateTime
+
+    @@unique([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+    id                   String  @id @default(auto()) @map("_id") @db.ObjectId
+    credentialID         String  @unique
+    userId               String  @db.ObjectId
+    providerAccountId    String
+    credentialPublicKey  String
+    counter              Int
+    credentialDeviceType String
+    credentialBackedUp   Boolean
+    transports           String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+//blog
+model Post {
+    id           String         @id @default(auto()) @map("_id") @db.ObjectId
+    authorId     String         @db.ObjectId
+    title        String
+    content      String
+    image        String
+    readTime     Int
+    status       PostStatus
+    Seen         Seen[]
+    Rating       Rating[]
+    Comment      Comment[]
+    PostTopicRel PostTopicRel[]
+
+    createdAt DateTime
+    updatedAt DateTime @updatedAt
+    author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+enum PostStatus {
+    draft
+    online
+    trash
+}
+
+model Comment {
+    id            String            @id @default(auto()) @map("_id") @db.ObjectId
+    content       String
+    postId        String            @db.ObjectId
+    userId        String            @db.ObjectId
+    post          Post              @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user          User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    reaction      CommentReaction[]
+    commentId     String?           @db.ObjectId
+    parentId      String?           @db.ObjectId
+    parent        Comment?          @relation("ChildComments", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+    childComments Comment[]         @relation("ChildComments")
+}
+
+model Rating {
+    id     String @id @default(auto()) @map("_id") @db.ObjectId
+    value  Int
+    postId String @db.ObjectId
+    userId String @db.ObjectId
+    post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Seen {
+    id     String  @id @default(auto()) @map("_id") @db.ObjectId
+    ip     String?
+    postId String  @db.ObjectId
+    userId String? @db.ObjectId
+    post   Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
+    user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CommentReaction {
+    id       String   @id @default(auto()) @map("_id") @db.ObjectId
+    reaction Reaction
+
+    userId    String  @db.ObjectId
+    commentId String  @db.ObjectId
+    user      User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+}
+
+model PostTopicRel {
+    id      String @id @default(auto()) @map("_id") @db.ObjectId
+    postId  String @db.ObjectId
+    topicId String @db.ObjectId
+
+    post  Post  @relation(fields: [postId], references: [id], onDelete: Cascade)
+    topic Topic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+}
+
+model Topic {
+    id           String         @id @default(auto()) @map("_id") @db.ObjectId
+    name         String
+    PostTopicRel PostTopicRel[]
+}
+
+enum Reaction {
+    LIKE
+    DISLIKE
+}

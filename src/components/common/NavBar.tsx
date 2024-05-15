@@ -1,13 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
-import { baseAuth } from "@/lib/auth";
 import { Layout } from "../layout/Layout";
 import { SigninBtn } from "@/features/auth/SigninBtn";
 import { ModeToggle } from "@/features/theme/ModeToggle";
 import { AuthenticatedMenu } from "@/features/auth/AuthenticatedMenu";
+import { currentUser } from "../../lib/current-user";
 
 export const NavBar = async () => {
-  const session = await baseAuth();
+  const user = await currentUser();
   return (
     <nav className="bg-white p-2 sticky top-0 border-b z-50 dark:bg-[#020817]">
       <Layout className="flex justify-between items-center">
@@ -21,13 +21,14 @@ export const NavBar = async () => {
           />
         </Link>
         <div className="flex gap-2">
-          {!session?.user && <SigninBtn />}
-          {session?.user && (
+          {!user && <SigninBtn />}
+          {user && (
             <AuthenticatedMenu
-              email={session?.user.email}
-              image={session?.user.image}
-              name={session?.user.name}
-              id={session?.user.id!}
+              email={user.email}
+              image={user.image}
+              name={user.name}
+              id={user.id!.toString()}
+              privileges={user.privileges}
             />
           )}
 
