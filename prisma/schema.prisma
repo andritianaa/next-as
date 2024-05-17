@@ -27,6 +27,7 @@ model User {
   Comment         Comment[]
   privileges      Privilege[]
   CommentReaction CommentReaction[]
+  Registration    Registration[]
 }
 
 enum Privilege {
@@ -176,4 +177,28 @@ model Topic {
 enum Reaction {
   LIKE
   DISLIKE
+}
+
+//registration
+
+model Registration {
+  id               Int                @id @default(autoincrement())
+  userId           Int
+  projectName      String
+  paymentReference String
+  phoneNumber      String
+  paymentType      Operator
+  status           RegistrationStatus
+  user             User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum RegistrationStatus {
+  pending
+  ok
+}
+
+enum Operator {
+  TELMA
+  AIRTEL
+  ORANGE
 }

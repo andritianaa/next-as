@@ -5,10 +5,12 @@ import { NavBar } from "../components/common/NavBar";
 import { currentUser } from "../lib/current-user";
 
 export default async function Home() {
+  const user = await currentUser();
+
   return (
     <>
       <NavBar />
-      <SpotlightHero />
+      <SpotlightHero user={user}/>
       <Tools />
       <Pricing />
     </>
