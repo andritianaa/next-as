@@ -13,6 +13,7 @@ model User {
   email         String?         @unique
   emailVerified DateTime?
   image         String?
+  password      String?
   accounts      Account[]
   sessions      Session[]
   // Optional for WebAuthn support
@@ -100,6 +101,7 @@ model Post {
   content      String
   image        String
   readTime     Int
+  tagId        String
   status       PostStatus
   Seen         Seen[]
   Rating       Rating[]
@@ -114,7 +116,7 @@ model Post {
 enum PostStatus {
   draft
   online
-  trash
+  archive
 }
 
 model Comment {
@@ -143,7 +145,7 @@ model Seen {
   id     Int     @id @default(autoincrement())
   ip     String?
   postId Int
-  userId Int
+  userId Int?
   post   Post    @relation(fields: [postId], references: [id], onDelete: Cascade)
   user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -177,3 +179,5 @@ enum Reaction {
   LIKE
   DISLIKE
 }
+
+//https://app.hubql.com/?file=fil_8b5da0ba704e48c2a896cc8e11accdc7

@@ -8,11 +8,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal } from "lucide-react";
+import { Archive, Eye, MoreHorizontal, Pencil, Trash } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { formatDateTime } from "@/lib/utils";
 import Link from "next/link";
-import { remove } from "@/actions/blog.actions";
+import { remove, archive } from "@/actions/blog.actions";
 
 import {
   Table,
@@ -26,7 +26,7 @@ import {
 import { PostWithAuthor } from "@/types/posts";
 
 export type TableProps = {
-  posts: PostWithAuthor[]
+  posts: PostWithAuthor[];
 };
 
 export const TablePost = (props: TableProps) => {
@@ -54,7 +54,7 @@ export const TablePost = (props: TableProps) => {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <Avatar className="size-12 aspect-square rounded-md object-cover">
                   <AvatarImage
-                  className="object-cover"
+                    className="object-cover"
                     src={
                       post.image
                         ? post.image
@@ -86,13 +86,30 @@ export const TablePost = (props: TableProps) => {
                   <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <Link href={`/dashboard/blog/preview/${post.id}`}>
-                      <DropdownMenuItem>View</DropdownMenuItem>
+                      <DropdownMenuItem className="flex items-center gap-2">
+                        <Eye size={16} />
+                        View
+                      </DropdownMenuItem>
                     </Link>
                     <Link href={`/dashboard/blog/edit/${post.id}`}>
-                      <DropdownMenuItem>Edit</DropdownMenuItem>
+                      <DropdownMenuItem className="flex items-center gap-2">
+                        <Pencil size={16} />
+                        Edit
+                      </DropdownMenuItem>
                     </Link>
-                    <DropdownMenuItem onClick={() => remove(post.id)}>
-                      Delete
+                    <DropdownMenuItem
+                      className="flex items-center gap-2"
+                      onClick={() => archive(post.id)}
+                    >
+                      <Archive size={16} />
+                      Archive
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="flex items-center gap-2 text-red-500"
+                      onClick={() => remove(post.id)}
+                    >
+                      <Trash size={16} />
+                      Remove
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

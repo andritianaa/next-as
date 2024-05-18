@@ -113,7 +113,7 @@ model Post {
 enum PostStatus {
     draft
     online
-    trash
+    archive
 }
 
 model Comment {

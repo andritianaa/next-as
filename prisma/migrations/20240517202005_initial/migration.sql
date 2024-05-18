@@ -83,6 +83,7 @@ CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,
     "authorId" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
+    "subtitle" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "image" TEXT NOT NULL,
     "readTime" INTEGER NOT NULL,

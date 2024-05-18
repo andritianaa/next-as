@@ -1,15 +1,21 @@
-"use server"
+"use server";
 
-import { Post, PostStatus } from "@prisma/client"
-import { currentUser } from "@/lib/current-user"
-import { calculateReadingTime } from "../lib/utils"
-import { prisma } from "../prisma"
+import { Post, PostStatus } from "@prisma/client";
+import { currentUser } from "@/lib/current-user";
+import { calculateReadingTime } from "../lib/utils";
+import { prisma } from "../prisma";
 
-export const publish = async (title: string, content: string, image: string, status: PostStatus, subtitle: string) => {
-    const user = await currentUser()
+export const publish = async (
+    title: string,
+    content: string,
+    image: string,
+    status: PostStatus,
+    subtitle: string
+) => {
+    const user = await currentUser();
     if (user) {
         console.log(title, content, image);
-        const readTime = calculateReadingTime(content)
+        const readTime = calculateReadingTime(content);
         await prisma.post.create({
             data: {
                 authorId: user.id,
@@ -19,18 +25,24 @@ export const publish = async (title: string, content: string, image: string, sta
                 readTime,
                 status,
                 subtitle,
-                createdAt: new Date()
+                createdAt: new Date(),
             },
-        })
+        });
     }
-}
+};
 
-
-export const edit = async (title: string, content: string, image: string, status: PostStatus, subtitle: string, id: number) => {
-    const readTime = calculateReadingTime(content)
+export const edit = async (
+    title: string,
+    content: string,
+    image: string,
+    status: PostStatus,
+    subtitle: string,
+    id: number
+) => {
+    const readTime = calculateReadingTime(content);
     await prisma.post.update({
         where: {
-            id
+            id,
         },
         data: {
             title,
@@ -38,19 +50,21 @@ export const edit = async (title: string, content: string, image: string, status
             image,
             readTime,
             status,
-            subtitle
+            subtitle,
         },
-    })
-}
+    });
+};
 
-export const remove = async (id: number) => {
+export const archive = async (id: number) => {
     await prisma.post.update({
         where: {
-            id
+            id,
         },
         data: {
-            status: PostStatus.trash
+            status: PostStatus.trash,
         },
-    })
-}
-
+    });
+};
+export const remove = async (id: number) => {
+    await prisma.post.delete({ where: { id } });
+};
